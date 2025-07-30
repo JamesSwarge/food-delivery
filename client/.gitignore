@@ -6,6 +6,7 @@ node_modules/
 # Expo
 .expo/
 dist/
+android/
 web-build/
 expo-env.d.ts
 
@@ -37,3 +38,5 @@ yarn-error.*
 *.tsbuildinfo
 
 app-example
+android/gradle.properties
+android/app/my-upload-key.keystore
