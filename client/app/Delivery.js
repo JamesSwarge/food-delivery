@@ -1,7 +1,7 @@
 import { View, Text, Image, SafeAreaView, TouchableOpacity, Platform } from 'react-native'
 import React from 'react'
 import { featured } from '@/constants'
-import { useNavigation } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 // import MapView, { Marker } from 'react-native-maps';
 import { themeColors } from '@/constants/Colors';
 import * as Icon from 'react-native-feather'
@@ -20,6 +20,16 @@ export default function Delivery() {
   // const restaurant = featured.restaurants[0];
   const restaurant = useSelector(selectRestaurant)
   const navigation = useNavigation();
+
+  const goToHome = () => {
+    // navigation.navigate("index");
+    // navigation.goBack(); // closes modal
+    router.dismissAll();    // 👈 make sure all modals are closed
+    setTimeout(() => {
+      router.replace("/");  // 👈 then go to home
+    }, 100);  
+    console.log("to homepage");    
+  }
 
   return (
     <SafeAreaView className='flex-1'>
@@ -77,7 +87,7 @@ export default function Delivery() {
               <TouchableOpacity className='bg-white p-2 rounded-full'>
                 <Icon.Phone fill={themeColors.bgColor(1)} stroke={themeColors.bgColor} strokeWidth={1} />
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>navigation.navigate("index")} className='bg-white p-2 rounded-full'>
+              <TouchableOpacity onPress={goToHome} className='bg-white p-2 rounded-full'>
                 <Icon.X stroke={'red'} strokeWidth={4} />
               </TouchableOpacity>
             </View>

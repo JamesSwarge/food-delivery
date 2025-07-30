@@ -19,7 +19,7 @@ export default function HomeScreen() {
       <StatusBar style="dark-content" />
       <View className="flex-row items-center space-x-2 mt-2 mb-4 px-4 pb-2">
         {/* Search bar code */}
-        <View className='flex-row flex-1 items-center py-0 px-4 rounded-full border border-gray-300'>
+        <View className='flex-row flex-1 items-center py-3 px-4 rounded-full border border-gray-300'>
           <Icon.Search height={25} width={25} stroke={'gray'} />
           <TextInput placeholder='Restaurants' className='ml-2 flex-1 text-lg' />
           <View className='flex-row items-center space-x-1 border-0 border-l-2 pl-2 border-gray-200' >
