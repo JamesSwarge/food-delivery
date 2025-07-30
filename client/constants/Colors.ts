@@ -24,3 +24,13 @@ export const Colors = {
     tabIconSelected: tintColorDark,
   },
 };
+
+export const themeColors = {
+  bgColor: (opacity = 1) => `rgba(128, 147, 241, ${opacity})`, // example light gray
+  primary: '#C0B9DD',
+  primarydark: '#8093f1',
+  secondary: '#03DAC6',
+  text: '#000000',
+  white: '#FFFFFF',
+  black: '#000000',
+};
