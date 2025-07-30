@@ -11,6 +11,8 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import "@/global.css"
+import { store } from '@/store'
+import { Provider } from 'react-redux'
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -21,7 +23,8 @@ export default function RootLayout() {
   if (!loaded) return null;
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <Provider store={store}>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack
           screenOptions={{
             headerStyle: { backgroundColor: "#6200EE" },
@@ -50,6 +53,7 @@ export default function RootLayout() {
           />
         </Stack>
         <StatusBar style="auto" />
-    </ThemeProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }

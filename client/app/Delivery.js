@@ -1,40 +1,54 @@
-import { View, Text, Image, SafeAreaView, TouchableOpacity } from 'react-native'
+import { View, Text, Image, SafeAreaView, TouchableOpacity, Platform } from 'react-native'
 import React from 'react'
 import { featured } from '@/constants'
 import { useNavigation } from 'expo-router';
-import MapView, { Marker } from 'react-native-maps';
+// import MapView, { Marker } from 'react-native-maps';
 import { themeColors } from '@/constants/Colors';
 import * as Icon from 'react-native-feather'
+import { useSelector } from 'react-redux';
+import { selectRestaurant } from '@/slices/restaurantSlice';
+
+// Only import MapView for native platforms
+let MapView, Marker;
+if (Platform.OS !== 'web') {
+  const Maps = require('react-native-maps');
+  MapView = Maps.default;
+  Marker = Maps.Marker;
+}
 
 export default function Delivery() {
-  const restaurant = featured.restaurants[0];
+  // const restaurant = featured.restaurants[0];
+  const restaurant = useSelector(selectRestaurant)
   const navigation = useNavigation();
 
   return (
     <SafeAreaView className='flex-1'>
       {/* <Text className='text-3xl font-bold'>Delivery</Text> */}
-      <MapView
-        initialRegion={{
-          latitude: restaurant.lat,
-          longitude: restaurant.lng,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        }}
-        className='flex-1'
-        style={{ flex: 1 }}
-        mapType='standard'
-      >
-        <Marker
-          coordinate={{
+      {Platform.OS !== 'web' ? (
+        <MapView
+          initialRegion={{
             latitude: restaurant.lat,
             longitude: restaurant.lng,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
           }}
-          title={restaurant.name}
-          description={restaurant.description}
-          pinColor={themeColors.bgColor(1)}
-        />
-      </MapView>
-
+          className='flex-1'
+          style={{ flex: 1 }}
+          mapType='standard'
+        >
+          <Marker
+            coordinate={{
+              latitude: restaurant.lat,
+              longitude: restaurant.lng,
+            }}
+            title={restaurant.name}
+            description={restaurant.description}
+            pinColor={themeColors.bgColor(1)}
+          />
+        </MapView>
+      ) : (
+        <Text>Map not available on web</Text>
+      )}
       <View className='rounded-t-3xl -mt-12 bg-white relative'>
           <View className='flex-row justify-between px-6 pt-6 pb-2'>
             <View className='ml-4'>
